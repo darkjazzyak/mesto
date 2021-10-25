@@ -1,0 +1,8 @@
+.gallery__grid-item-like {
+  margin: 5px 5px 0 0;
+}
+
+.gallery__grid-item-like:hover {
+  cursor: pointer;
+  opacity: 50%;
+}

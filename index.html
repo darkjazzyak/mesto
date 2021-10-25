@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="page">
+  <header class="header page__header">
+    <img src="./images/logo_mesto.svg" alt="логотип проекта место" class="header__logo">
+  </header>
+  <section class="profile page__profile">
+    <div class="profile__description">
+      <img src="./images/kusto_avatar.jpg" alt="портрет Жака Кусто" class="profile__avatar">
+      <div class="profile__description-text">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <img src="./images/pencil.svg" alt="карандаш символизирующий возможность редактирования" class="profile__edit-button">
+        <p class="profile__about-me">Исследователь океана</p>
+      </div>
+    </div>
+    <button class="profile__add-button"></button>
+  </section>
+  <section class="gallery page__gallery">
+    <ul class="gallery__grid-list">
+      <li class="gallery__grid-list-item">
+        <img src="./images/karachaevsk.jpg" alt="развалины старой часовни" class="gallery__grid-item-image">
+        <div class="gallery__grid-item-description">
+          <p class="gallery__grid-item-text">Карачаевск</p>
+          <img src="./images/heart_transparent.svg" alt="иконка сердце" class="gallery__grid-item-like">
+        </div>
+      </li>
+      <li class="gallery__grid-list-item">
+        <img src="./images/elbrus.jpg" alt="горы на восходе" class="gallery__grid-item-image">
+        <div class="gallery__grid-item-description">
+          <p class="gallery__grid-item-text">Гора Эльбрус</p>
+          <img src="./images/heart_transparent.svg" alt="иконка сердце" class="gallery__grid-item-like">
+        </div>
+      </li>
+      <li class="gallery__grid-list-item">
+        <img src="./images/dombay.jpg" alt="горы со снежными шапками" class="gallery__grid-item-image">
+        <div class="gallery__grid-item-description">
+          <p class="gallery__grid-item-text">Домбай</p>
+          <img src="./images/heart_transparent.svg" alt="иконка сердце" class="gallery__grid-item-like">
+        </div>
+      </li>
+      <li class="gallery__grid-list-item">
+        <img src="./images/elbrus.jpg" alt="горы на восходе" class="gallery__grid-item-image">
+        <div class="gallery__grid-item-description">
+          <p class="gallery__grid-item-text">Гора Эльбрус</p>
+          <img src="./images/heart_transparent.svg" alt="иконка сердце" class="gallery__grid-item-like">
+        </div>
+      </li>
+      <li class="gallery__grid-list-item">
+        <img src="./images/dombay.jpg" alt="горы со снежными шапками" class="gallery__grid-item-image">
+        <div class="gallery__grid-item-description">
+          <p class="gallery__grid-item-text">Домбай</p>
+          <img src="./images/heart_transparent.svg" alt="иконка сердце" class="gallery__grid-item-like">
+        </div>
+      </li>
+      <li class="gallery__grid-list-item">
+        <img src="./images/karachaevsk.jpg" alt="развалины старой часовни" class="gallery__grid-item-image">
+        <div class="gallery__grid-item-description">
+          <p class="gallery__grid-item-text">Карачаево-Черкесcия</p>
+          <img src="./images/heart_transparent.svg" alt="иконка сердце" class="gallery__grid-item-like">
+        </div>
+      </li>
+    </ul>
+  </section>
+  <footer class="footer page__footer">
+    <p class="footer__copyright">&copy;2020 Mesto</p>
+  </footer>
+  <section class="popup">
+    <div class="popup__window">
+      <img src="./images/Close_Icon.png" alt="иконка закрытия всплывающего окна" class="popup__close-icon">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form action="get" class="popup__form">
+        <input type="text" class="popup__form-input popup__form-input_type_name" name="name" value="Жак-Ив Кусто" autocomplete="off">
+        <input type="text" class="popup__form-input popup__form-input_type_about-me" name="about-me" value="Исследователь океана" autocomplete="off">
+        <input type="submit" class="popup__form-button" value="Сохранить">
+      </form>
+    </div>
+  </section>
+  <script src="./scripts/index.js"></script>
+</body>
+</html>

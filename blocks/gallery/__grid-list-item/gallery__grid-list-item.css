@@ -1,0 +1,7 @@
+.gallery__grid-list-item {
+  max-width: 100%;
+  min-height: 362px;
+  background-color: #FFF;
+  border-radius: 10px;
+  overflow: hidden;
+}

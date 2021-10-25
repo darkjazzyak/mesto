@@ -1,0 +1,15 @@
+.gallery {
+  max-width: 880px;
+}
+
+@media screen and (max-width: 1024px) {
+  .gallery {
+    max-width: 581px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .gallery {
+    max-width: 282px;
+  }
+}

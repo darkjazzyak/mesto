@@ -1,0 +1,9 @@
+.popup__form-input_type_about-me {
+margin: 0 0 49px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .popup__form-input_type_about-me {
+    margin-bottom: 46px;
+  }
+}

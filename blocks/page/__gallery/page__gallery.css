@@ -1,0 +1,10 @@
+.page__gallery {
+  margin: 51px auto 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .page__gallery {
+    margin-top: 36px;
+  }
+}

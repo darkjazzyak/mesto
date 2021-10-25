@@ -1,0 +1,8 @@
+.gallery__grid-item-description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin: 25px 15px 0 21px;
+  padding: 0;
+}

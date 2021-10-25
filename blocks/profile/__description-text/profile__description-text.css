@@ -1,0 +1,19 @@
+.profile__description-text {
+  margin: 22px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: baseline;
+  align-content: flex-start;
+  flex-basis: 336px;
+
+}
+
+@media screen and (max-width: 768px) {
+  .profile__description-text {
+    margin-top: 26px;
+    flex-basis: 282px;
+    justify-content: center;
+  }
+}
+
