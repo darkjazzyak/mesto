@@ -1,5 +1,15 @@
 .gallery__grid-item-like {
   margin: 5px 5px 0 0;
+  box-sizing: border-box;
+  background-color: transparent;
+  background-image: url('../../../images/heart_transparent.svg');
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: 22px 19px;
+  background-position: center;
+  width: 22px;
+  height: 19px;
+  border: none;
 }
 
 .gallery__grid-item-like:hover {

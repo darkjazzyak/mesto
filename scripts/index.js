@@ -9,9 +9,9 @@ const nameInput = formElement.querySelector('.popup__form-input_type_name');
 const aboutMeInput = formElement.querySelector('.popup__form-input_type_about-me');
 
 function openPopup() {
-    popupElement.classList.add('popup_opened');
-    nameInput.value = profileNameText.textContent;
-    aboutMeInput.value = profileAboutMeText.textContent;
+  nameInput.value = profileNameText.textContent;
+  aboutMeInput.value = profileAboutMeText.textContent;
+  popupElement.classList.add('popup_opened');
 }
 
 function closePopup() {

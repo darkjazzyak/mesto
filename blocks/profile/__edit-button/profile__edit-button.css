@@ -1,6 +1,6 @@
 .profile__edit-button {
   box-sizing: border-box;
-  background-color: #000;
+  background-color: transparent;
   background-image: url('../../../images/pencil.svg');
   margin: 0;
   padding: 0;

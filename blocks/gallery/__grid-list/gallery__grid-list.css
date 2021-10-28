@@ -2,20 +2,9 @@
   display: grid;
   list-style: none;
   max-width: 100%;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   gap: 20px 17px;
   margin: 0;
   padding: 0;
 }
 
-@media screen and (max-width: 1024px) {
-  .gallery__grid-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .gallery__grid-list {
-    grid-template-columns: 1fr;
-  }
-}
