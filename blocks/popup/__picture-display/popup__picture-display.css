@@ -1,0 +1,9 @@
+.popup__picture-display {
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+}

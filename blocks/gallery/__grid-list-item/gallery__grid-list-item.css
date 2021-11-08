@@ -3,4 +3,5 @@
   border-radius: 10px;
   overflow: hidden;
   font-size: 0px;
+  position: relative; /*for absolute positioning of .gallery__grid-item-delete*/
 }

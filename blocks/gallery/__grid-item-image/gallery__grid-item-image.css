@@ -1,5 +1,12 @@
 .gallery__grid-item-image {
-  max-width: 100%;
+  width: 282px;
+  height: 282px;
   margin: 0;
   padding: 0;
+  object-position: center;
+  object-fit: cover;
+}
+
+.gallery__grid-item-image:hover {
+  cursor: pointer;
 }

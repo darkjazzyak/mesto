@@ -24,65 +24,51 @@
     </section>
     <section class="gallery page__gallery">
       <ul class="gallery__grid-list">
-        <li class="gallery__grid-list-item">
-          <img src="./images/karachaevsk.jpg" alt="развалины старой часовни" class="gallery__grid-item-image">
-          <div class="gallery__grid-item-description">
-            <h2 class="gallery__grid-item-text">Карачаевск</h2>
-            <button type="button" class="gallery__grid-item-like" aria-label="Like-button"></button>
-          </div>
-        </li>
-        <li class="gallery__grid-list-item">
-          <img src="./images/elbrus.jpg" alt="горы на восходе" class="gallery__grid-item-image">
-          <div class="gallery__grid-item-description">
-            <h2 class="gallery__grid-item-text">Гора Эльбрус</h2>
-            <button type="button" class="gallery__grid-item-like" aria-label="Like-button"></button>
-          </div>
-        </li>
-        <li class="gallery__grid-list-item">
-          <img src="./images/dombay.jpg" alt="горы со снежными шапками" class="gallery__grid-item-image">
-          <div class="gallery__grid-item-description">
-            <h2 class="gallery__grid-item-text">Домбай</h2>
-            <button type="button" class="gallery__grid-item-like" aria-label="Like-button"></button>
-          </div>
-        </li>
-        <li class="gallery__grid-list-item">
-          <img src="./images/elbrus.jpg" alt="горы на восходе" class="gallery__grid-item-image">
-          <div class="gallery__grid-item-description">
-            <h2 class="gallery__grid-item-text">Гора Эльбрус</h2>
-            <button type="button" class="gallery__grid-item-like" aria-label="Like-button"></button>
-          </div>
-        </li>
-        <li class="gallery__grid-list-item">
-          <img src="./images/dombay.jpg" alt="горы со снежными шапками" class="gallery__grid-item-image">
-          <div class="gallery__grid-item-description">
-            <h2 class="gallery__grid-item-text">Домбай</h2>
-            <button type="button" class="gallery__grid-item-like" aria-label="Like-button"></button>
-          </div>
-        </li>
-        <li class="gallery__grid-list-item">
-          <img src="./images/karachaevsk.jpg" alt="развалины старой часовни" class="gallery__grid-item-image">
-          <div class="gallery__grid-item-description">
-            <h2 class="gallery__grid-item-text">Карачаево-Черкесcия</h2>
-            <button type="button" class="gallery__grid-item-like" aria-label="Like-button"></button>
-          </div>
-        </li>
       </ul>
     </section>
   </main>
   <footer class="footer page__footer">
     <p class="footer__copyright">&copy;2020 Mesto</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup_type_edit-profile">
     <div class="popup__window">
-      <button type="button" class="popup__close-icon" aria-label="Close-button"></button>
+      <button type="button" class="popup__close-icon" aria-label="Close-button-profile"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="popup-form">
+      <form class="popup__form popup__form_type_edit-profile" name="popup-form-edit-profile">
         <input type="text" class="popup__form-input popup__form-input_type_name" name="name" value="Жак-Ив Кусто" autocomplete="off" placeholder="Имя" required>
         <input type="text" class="popup__form-input popup__form-input_type_about-me" name="about-me" value="Исследователь океана" autocomplete="off" placeholder="О себе" required>
         <button type="submit" class="popup__form-button">Сохранить</button>
       </form>
     </div>
   </div>
+  <div class="popup popup_type_add-card">
+    <div class="popup__window">
+      <button type="button" class="popup__close-icon" aria-label="Close-button-add-card"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form popup__form_type_new-place" name="popup-form-new-place">
+        <input type="text" class="popup__form-input popup__form-input_type_place-name" name="place-name" autocomplete="off" placeholder="Название" required>
+        <input type="text" class="popup__form-input popup__form-input_type_pictute-url" name="picture-url" autocomplete="off" placeholder="Ссылка на картинку" required>
+        <button type="submit" class="popup__form-button">Создать</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_view-card">
+    <div class="popup__picture-display">
+      <button type="button" class="popup__close-icon" aria-label="Close-button-view-card"></button>
+      <img src="./images/karachaevsk.jpg" alt="изображение места" class="popup__place-picture">
+      <h2 class="popup__place-name">Новое место</h2>
+     </div>
+  </div>
+  <template class="gallery-template">
+    <li class="gallery__grid-list-item">
+      <img src="./images/karachaevsk.jpg" alt="изображение места" class="gallery__grid-item-image">
+      <button type="button" class="gallery__grid-item-delete" aria-label="Delete-button"></button>
+      <div class="gallery__grid-item-description">
+        <h2 class="gallery__grid-item-text"></h2>
+        <button type="button" class="gallery__grid-item-like" aria-label="Like-button"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
