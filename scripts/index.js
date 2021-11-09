@@ -39,8 +39,8 @@ const aboutMeInput = formElementProfile.querySelector('.popup__form-input_type_a
 //popup elements New Place
 const popupElementAddCard = document.querySelector('.popup_type_add-card');
 const formElementAddcard = popupElementAddCard.querySelector('.popup__form_type_new-place');
-const PlaceNameInput = formElementAddcard.querySelector('.popup__form-input_type_place-name');
-const PictureUrlInput = formElementAddcard.querySelector('.popup__form-input_type_pictute-url');
+const placeNameInput = formElementAddcard.querySelector('.popup__form-input_type_place-name');
+const pictureUrlInput = formElementAddcard.querySelector('.popup__form-input_type_pictute-url');
 
 //popup elements view card
 const popupElementViewCard = document.querySelector('.popup_type_view-card');
@@ -58,18 +58,24 @@ const popupViewCardCloseButton = popupElementViewCard.querySelector('.popup__clo
 const galleryList = document.querySelector('.gallery__grid-list');
 const cardTemplate = document.querySelector('.gallery-template').content;
 
-function renderCard (card) {
-  const cardElement = cardTemplate.querySelector('.gallery__grid-list-item').cloneNode(true);
-  cardElement.querySelector('.gallery__grid-item-image').src = card.link;
-  cardElement.querySelector('.gallery__grid-item-text').textContent = card.name;
-  galleryList.prepend(cardElement);
-  setListeners (cardElement);
+function createCard (cardData) {
+  const oneNewCard = cardTemplate.querySelector('.gallery__grid-list-item').cloneNode(true);
+  oneNewCard.querySelector('.gallery__grid-item-image').src = cardData.link;
+  oneNewCard.querySelector('.gallery__grid-item-image').alt = cardData.name;
+  oneNewCard.querySelector('.gallery__grid-item-text').textContent = cardData.name;
+  setListeners (oneNewCard);
+  return oneNewCard;
 };
 
-function setListeners(addedCard) {
-addedCard.querySelector('.gallery__grid-item-like').addEventListener('click', toggleLikeStatus);
-addedCard.querySelector('.gallery__grid-item-delete').addEventListener('click', deleteCard);
-addedCard.querySelector('.gallery__grid-item-image').addEventListener('click', renderViewCardPopup);
+function renderCard (card) {
+  const cardElement = createCard(card);
+  galleryList.prepend(cardElement);
+};
+
+function setListeners(createdCard) {
+createdCard.querySelector('.gallery__grid-item-like').addEventListener('click', toggleLikeStatus);
+createdCard.querySelector('.gallery__grid-item-delete').addEventListener('click', deleteCard);
+createdCard.querySelector('.gallery__grid-item-image').addEventListener('click', renderViewCardPopup);
 };
 
 function toggleLikeStatus (event) {
@@ -82,17 +88,18 @@ function deleteCard (event) {
 
 function renderViewCardPopup(event) {
   popupElementViewCard.querySelector('.popup__place-picture').src = event.target.src;
+  popupElementViewCard.querySelector('.popup__place-picture').alt = event.target.alt;
   const displayedCard = event.target.closest('.gallery__grid-list-item');
   const displayedDescription = displayedCard.querySelector('.gallery__grid-item-text');
   popupElementViewCard.querySelector('.popup__place-name').textContent = displayedDescription.textContent;
-  popupElementViewCard.classList.add('popup_opened');
+  openPopup(popupElementViewCard);
 };
 
 //render initial cards
-for (let i=1; i <= initialCards.length; i++) {
- let k = initialCards.length - i;
- renderCard(initialCards[k]);
-};
+const initialCardsReversed = initialCards.reverse();
+initialCardsReversed.forEach(function (card) {
+renderCard(card);
+});
 
 function openPopup(popupType) {
   popupType.classList.add('popup_opened');
@@ -110,8 +117,8 @@ profileEditButton.addEventListener('click', function() {
 });
 cardAddButton.addEventListener('click', function() {
   openPopup(popupElementAddCard);
-  PlaceNameInput.value = '';
-  PictureUrlInput.value = '';
+  placeNameInput.value = '';
+  pictureUrlInput.value = '';
 });
 
 //listeners for popups close
@@ -137,8 +144,8 @@ function formSubmitProfileHandler (evt) {
 function formSubmitNewPlaceHandler (evt) {
   evt.preventDefault();
   const newCard = {};
-  newCard.name = PlaceNameInput.value;
-  newCard.link = PictureUrlInput.value;
+  newCard.name = placeNameInput.value;
+  newCard.link = pictureUrlInput.value;
   renderCard (newCard);
   closePopup(popupElementAddCard);
 };
