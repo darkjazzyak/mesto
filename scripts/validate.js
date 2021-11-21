@@ -1,4 +1,3 @@
-
 //check given field of given form for validity
  const isValid = (formElement, inputElement, settingsObject) => {
   if (!inputElement.validity.valid) {
@@ -58,7 +57,11 @@ const setEventListeners = (formElement, settingsObject) => {
  const toggleButtonActivity = (inputElementsList, buttonElement, settingsObject) => {
   if (hasInvalidInput(inputElementsList)) {
     buttonElement.classList.add(settingsObject.inactiveButtonClass);
+    buttonElement.disabled = true;
   } else {
     buttonElement.classList.remove(settingsObject.inactiveButtonClass);
+    buttonElement.disabled = false;
   };
  };
+
+

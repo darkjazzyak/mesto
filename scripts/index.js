@@ -109,7 +109,6 @@ renderCard(card);
 function openPopup(popupType) {
   popupType.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByEsc);
-  setPopupCloseByClick(popupType);
 };
 
 function closePopup(popupType) {
@@ -122,32 +121,35 @@ profileEditButton.addEventListener('click', function() {
   openPopup(popupElementProfile);
   nameInput.value = profileNameText.textContent;
   aboutMeInput.value = profileAboutMeText.textContent;
-  validateForms(ClassSettingsObject);
 });
+
 cardAddButton.addEventListener('click', function() {
   openPopup(popupElementAddCard);
   placeNameInput.value = '';
   pictureUrlInput.value = '';
-  validateForms(ClassSettingsObject);
+  const closeButton = formElementAddcard.querySelector('.popup__form-button');
+  closeButton.classList.add(ClassSettingsObject.inactiveButtonClass);
+  closeButton.disabled = true;
 });
-
 
 //callback for popup close by esc
 function closePopupByEsc (event) {
-  const openedPopup = document.querySelector('.popup_opened');
   if(event.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   };
 }
 
 //set listener for popups close by click on overlay
-function setPopupCloseByClick(popupElement){
+
+const popups = document.querySelectorAll('.popup');
+popups.forEach(function (popupElement) {
   popupElement.addEventListener('click', (event) =>{
     if (event.target.classList.contains('popup') || event.target.classList.contains('popup__close-icon')) {
       closePopup(popupElement);
-      }
+    }
+  });
 });
-}
 
 // form submit Profile
 function formSubmitProfileHandler (evt) {
@@ -171,3 +173,5 @@ function formSubmitNewPlaceHandler (evt) {
 formElementProfile.addEventListener('submit', formSubmitProfileHandler);
 formElementAddcard.addEventListener('submit', formSubmitNewPlaceHandler);
 
+// activates forms validation
+validateForms(ClassSettingsObject);
