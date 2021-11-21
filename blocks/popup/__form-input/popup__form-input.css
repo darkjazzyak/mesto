@@ -9,13 +9,3 @@
   line-height: 17px;
   margin: 0 0 21px 0;
 }
-
-.popup__form-input:last-of-type {
-  margin: 0 0 49px 0;
-}
-
-@media screen and (max-width: 768px) {
-  .popup__form-input:last-of-type {
-    margin-bottom: 46px;
-  }
-}

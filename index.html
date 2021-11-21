@@ -34,10 +34,39 @@
     <div class="popup__window">
       <button type="button" class="popup__close-icon" aria-label="Close-button-profile"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form popup__form_type_edit-profile" name="popup-form-edit-profile">
-        <input type="text" class="popup__form-input popup__form-input_type_name" name="name" value="Жак-Ив Кусто" autocomplete="off" placeholder="Имя" required>
-        <input type="text" class="popup__form-input popup__form-input_type_about-me" name="about-me" value="Исследователь океана" autocomplete="off" placeholder="О себе" required>
-        <button type="submit" class="popup__form-button">Сохранить</button>
+      <form class="popup__form popup__form_type_edit-profile" name="popup-form-edit-profile" novalidate>
+        <label class="popup__form-input-field">
+          <input
+            type="text"
+            class="popup__form-input popup__form-input_type_name"
+            id = "name"
+            name="name"
+            value="Жак-Ив Кусто"
+            autocomplete="off"
+            placeholder="Имя"
+            novalidate
+            required
+            minlength="2"
+            maxlength="40"
+          >
+          <span class="popup__form-input-error name-error">Нужно ввести</span>
+        </label>
+        <label class="popup__form-input-field">
+          <input
+            type="text"
+            class="popup__form-input popup__form-input_type_about-me"
+            id="about-me"
+            name="about-me"
+            value="Исследователь океана"
+            autocomplete="off"
+            placeholder="О себе"
+            required
+            minlength="2"
+            maxlength="200"
+          >
+          <span class="popup__form-input-error about-me-error">Нужно ввести</span>
+        </label>
+          <button type="submit" class="popup__form-button">Сохранить</button>
       </form>
     </div>
   </div>
@@ -46,8 +75,32 @@
       <button type="button" class="popup__close-icon" aria-label="Close-button-add-card"></button>
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form popup__form_type_new-place" name="popup-form-new-place">
-        <input type="text" class="popup__form-input popup__form-input_type_place-name" name="place-name" autocomplete="off" placeholder="Название" required>
-        <input type="text" class="popup__form-input popup__form-input_type_pictute-url" name="picture-url" autocomplete="off" placeholder="Ссылка на картинку" required>
+        <label class="popup__form-input-field">
+          <input
+            type="text"
+            class="popup__form-input popup__form-input_type_place-name"
+            name="place-name"
+            id="place-name"
+            autocomplete="off"
+            placeholder="Название"
+            required
+            minlength="2"
+            maxlength="30"
+          >
+          <span class="popup__form-input-error place-name-error">Вы пропустили это поле</span>
+        </label>
+        <label class="popup__form-input-field">
+          <input
+            type="url"
+            class="popup__form-input popup__form-input_type_pictute-url"
+            name="picture-url"
+            id="picture-url"
+            autocomplete="off"
+            placeholder="Ссылка на картинку"
+            required
+          >
+          <span class="popup__form-input-error picture-url-error">Введите адрес сайта</span>
+        </label>
         <button type="submit" class="popup__form-button">Создать</button>
       </form>
     </div>
@@ -70,5 +123,6 @@
     </li>
   </template>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>

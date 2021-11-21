@@ -1,0 +1,7 @@
+.popup__form-input-field {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}

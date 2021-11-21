@@ -7,6 +7,7 @@
   line-height: 22px;
   font-weight: 400;
   border: none;
+  margin-top: 28px;
 }
 
 .popup__form-button:hover {
@@ -19,5 +20,6 @@
     min-height: 46px;
     font-size: 14px;
     line-height: 17px;
+    margin-top: 25px;
   }
 }
