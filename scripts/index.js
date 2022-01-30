@@ -1,38 +1,6 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-const ClassSettingsObject = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__form-input',
-  submitButtonSelector: '.popup__form-button',
-  inactiveButtonClass: 'popup__form-button_disabled',
-  inputErrorClass: 'popup__form-input_type_error',
-  errorClass: 'popup__form-input-error_active'
-};
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import {classSettingsObject, initialCards} from './constants.js';
 
 //profile elements
 const profileElement = document.querySelector('.profile');
@@ -60,37 +28,22 @@ const cardAddButton = document.querySelector('.profile__add-button');
 
 //template elements
 const galleryList = document.querySelector('.gallery__grid-list');
-const cardTemplate = document.querySelector('.gallery-template').content;
 
-function createCard (cardData) {
-  const oneNewCard = cardTemplate.querySelector('.gallery__grid-list-item').cloneNode(true);
-  oneNewCard.querySelector('.gallery__grid-item-image').src = cardData.link;
-  oneNewCard.querySelector('.gallery__grid-item-image').alt = cardData.name;
-  oneNewCard.querySelector('.gallery__grid-item-text').textContent = cardData.name;
-  setListeners (oneNewCard);
-  return oneNewCard;
-};
+// new card generating function
+function generateNewCard(cardData) {
+  const card = new Card(cardData, '.gallery-template');
+  const newCard = card.generateCard();
+  return newCard;
+}
 
-function renderCard (card) {
-  const cardElement = createCard(card);
-  galleryList.prepend(cardElement);
-};
+//rendering of initial cards
+initialCards.forEach((element) => {
+  const oneNewCard = generateNewCard(element);
+  galleryList.append(oneNewCard);
+});
 
-function setListeners(createdCard) {
-createdCard.querySelector('.gallery__grid-item-like').addEventListener('click', toggleLikeStatus);
-createdCard.querySelector('.gallery__grid-item-delete').addEventListener('click', deleteCard);
-createdCard.querySelector('.gallery__grid-item-image').addEventListener('click', renderViewCardPopup);
-};
-
-function toggleLikeStatus (event) {
-  event.target.classList.toggle('gallery__grid-item-like_liked');
-};
-
-function deleteCard (event) {
-  event.target.closest('.gallery__grid-list-item').remove();
-};
-
-function renderViewCardPopup(event) {
+// renders popup with picture preview (also used in FormValidator)
+export function renderViewCardPopup(event) {
   popupElementViewCard.querySelector('.popup__place-picture').src = event.target.src;
   popupElementViewCard.querySelector('.popup__place-picture').alt = event.target.alt;
   const displayedCard = event.target.closest('.gallery__grid-list-item');
@@ -99,36 +52,43 @@ function renderViewCardPopup(event) {
   openPopup(popupElementViewCard);
 };
 
-//render initial cards
-const initialCardsReversed = initialCards.reverse();
-initialCardsReversed.forEach(function (card) {
-renderCard(card);
-});
-
 //opens popup + sets listeners for popup close by esc and click
 function openPopup(popupType) {
   popupType.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByEsc);
 };
 
+//closes popup and clears input error messages
 function closePopup(popupType) {
   document.removeEventListener('keydown', closePopupByEsc);
   popupType.classList.remove('popup_opened');
+  clearFormErrors(popupType);
 };
 
-//listeners for popups open
+//clears input error messages if popup was closed with active error message
+function clearFormErrors(popupType) {
+  if (popupType === popupElementProfile || popupType === popupElementAddCard) {
+    const openFormInputs = Array.from(popupType.querySelectorAll(classSettingsObject.inputSelector));
+    openFormInputs.forEach((element) => element.classList.remove(classSettingsObject.inputErrorClass));
+    const openFormErrors = Array.from(popupType.querySelectorAll(classSettingsObject.errorSpanSelector));
+    openFormErrors.forEach((element) => element.classList.remove(classSettingsObject.errorClass));
+  }
+}
+
+//listener for 'edit profile' button
 profileEditButton.addEventListener('click', function() {
   openPopup(popupElementProfile);
   nameInput.value = profileNameText.textContent;
   aboutMeInput.value = profileAboutMeText.textContent;
 });
 
+//listener for 'add new card' button
 cardAddButton.addEventListener('click', function() {
   openPopup(popupElementAddCard);
   placeNameInput.value = '';
   pictureUrlInput.value = '';
   const closeButton = formElementAddcard.querySelector('.popup__form-button');
-  closeButton.classList.add(ClassSettingsObject.inactiveButtonClass);
+  closeButton.classList.add(classSettingsObject.inactiveButtonClass);
   closeButton.disabled = true;
 });
 
@@ -141,7 +101,6 @@ function closePopupByEsc (event) {
 }
 
 //set listener for popups close by click on overlay
-
 const popups = document.querySelectorAll('.popup');
 popups.forEach(function (popupElement) {
   popupElement.addEventListener('click', (event) =>{
@@ -165,7 +124,8 @@ function formSubmitNewPlaceHandler (evt) {
   const newCard = {};
   newCard.name = placeNameInput.value;
   newCard.link = pictureUrlInput.value;
-  renderCard (newCard);
+  const newGeneratedCard = generateNewCard(newCard)
+  galleryList.prepend(newGeneratedCard);
   closePopup(popupElementAddCard);
 };
 
@@ -173,5 +133,9 @@ function formSubmitNewPlaceHandler (evt) {
 formElementProfile.addEventListener('submit', formSubmitProfileHandler);
 formElementAddcard.addEventListener('submit', formSubmitNewPlaceHandler);
 
-// activates forms validation
-validateForms(ClassSettingsObject);
+//check all forms in document for validity by creating FormValidator instances
+const formElementsList = Array.from(document.querySelectorAll(classSettingsObject.formSelector));
+formElementsList.forEach((formElement) => {
+  const checkedForm = new FormValidator (formElement, classSettingsObject);
+  checkedForm.validateForm();
+});
