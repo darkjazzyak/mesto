@@ -62,24 +62,15 @@ function openPopup(popupType) {
 function closePopup(popupType) {
   document.removeEventListener('keydown', closePopupByEsc);
   popupType.classList.remove('popup_opened');
-  clearFormErrors(popupType);
 };
-
-//clears input error messages if popup was closed with active error message
-function clearFormErrors(popupType) {
-  if (popupType === popupElementProfile || popupType === popupElementAddCard) {
-    const openFormInputs = Array.from(popupType.querySelectorAll(classSettingsObject.inputSelector));
-    openFormInputs.forEach((element) => element.classList.remove(classSettingsObject.inputErrorClass));
-    const openFormErrors = Array.from(popupType.querySelectorAll(classSettingsObject.errorSpanSelector));
-    openFormErrors.forEach((element) => element.classList.remove(classSettingsObject.errorClass));
-  }
-}
 
 //listener for 'edit profile' button
 profileEditButton.addEventListener('click', function() {
   openPopup(popupElementProfile);
   nameInput.value = profileNameText.textContent;
   aboutMeInput.value = profileAboutMeText.textContent;
+  editProfileValidator.clearFormErrors();
+  editProfileValidator.toggleSubmitButton();
 });
 
 //listener for 'add new card' button
@@ -87,9 +78,8 @@ cardAddButton.addEventListener('click', function() {
   openPopup(popupElementAddCard);
   placeNameInput.value = '';
   pictureUrlInput.value = '';
-  const closeButton = formElementAddcard.querySelector('.popup__form-button');
-  closeButton.classList.add(classSettingsObject.inactiveButtonClass);
-  closeButton.disabled = true;
+  addCardValidator.clearFormErrors();
+  addCardValidator.disableSubmitButton();
 });
 
 //callback for popup close by esc
@@ -129,13 +119,12 @@ function formSubmitNewPlaceHandler (evt) {
   closePopup(popupElementAddCard);
 };
 
-//listeners for popups submit
+// listeners for popups submit
 formElementProfile.addEventListener('submit', formSubmitProfileHandler);
 formElementAddcard.addEventListener('submit', formSubmitNewPlaceHandler);
 
-//check all forms in document for validity by creating FormValidator instances
-const formElementsList = Array.from(document.querySelectorAll(classSettingsObject.formSelector));
-formElementsList.forEach((formElement) => {
-  const checkedForm = new FormValidator (formElement, classSettingsObject);
-  checkedForm.validateForm();
-});
+// create 2 FormValidator instances for 2 forms in the document and activate validation
+const editProfileValidator = new FormValidator (formElementProfile, classSettingsObject);
+editProfileValidator.validateForm();
+const addCardValidator = new FormValidator (formElementAddcard, classSettingsObject);
+addCardValidator.validateForm();

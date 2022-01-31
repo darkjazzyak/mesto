@@ -9,7 +9,8 @@ class Card {
 
   //takes the template from the DOM
   _getTemplate() {
-    const cardElement = document.querySelector(this._cardTemplate).content.querySelector('.gallery__grid-list-item').cloneNode(true);
+    const templateElement = document.querySelector(this._cardTemplate).content
+    const cardElement = templateElement.querySelector('.gallery__grid-list-item').cloneNode(true);
     return cardElement;
   }
 
