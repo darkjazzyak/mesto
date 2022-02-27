@@ -1,6 +1,6 @@
 import {classSettingsObject} from './constants.js';
 
-class FormValidator {
+export default class FormValidator {
   constructor(formElement, classSettingsObject) {
     this._formElement = formElement; // form selector from outside
     this._inputSelector =  classSettingsObject.inputSelector;
@@ -83,5 +83,3 @@ class FormValidator {
   }
 
 }
-
-  export default FormValidator;

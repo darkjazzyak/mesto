@@ -1,9 +1,7 @@
-import {renderViewCardPopup as _renderPopup} from './index.js';
-
 class Card {
-  constructor (item, cardTemplate) {
-    this._name = item.name;
-    this._link = item.link;
+  constructor ({item, handleCardClick}, cardTemplate) {
+    this._item = item;
+    this._handleCardClick = handleCardClick;
     this._cardTemplate = cardTemplate;
   }
 
@@ -22,7 +20,7 @@ class Card {
       this._deleteCard();
       });
     this._element.querySelector('.gallery__grid-item-image').addEventListener('click', (event) => {
-      _renderPopup(event); //imported from index.js
+      this._handleCardClick(event);
       });
   }
 
@@ -36,9 +34,9 @@ class Card {
 //public method returns comlete card filled with data + listeners
   generateCard () {
     this._element = this._getTemplate();
-    this._element.querySelector('.gallery__grid-item-image').src = this._link;
-    this._element.querySelector('.gallery__grid-item-image').alt = this._name;
-    this._element.querySelector('.gallery__grid-item-text').textContent = this._name;
+    this._element.querySelector('.gallery__grid-item-image').src = this._item.link;
+    this._element.querySelector('.gallery__grid-item-image').alt = this._item.name;
+    this._element.querySelector('.gallery__grid-item-text').textContent = this._item.name;
     this._setEventListeners();
   return this._element;
   };
