@@ -29,6 +29,7 @@ class Card {
   }
   _deleteCard() {
     this._element.remove();
+    this._element = '';
   }
 
 //public method returns comlete card filled with data + listeners

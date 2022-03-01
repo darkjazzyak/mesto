@@ -1,5 +1,3 @@
-import {classSettingsObject} from './constants.js';
-
 export default class FormValidator {
   constructor(formElement, classSettingsObject) {
     this._formElement = formElement; // form selector from outside
@@ -8,11 +6,13 @@ export default class FormValidator {
     this._inactiveButtonClass = classSettingsObject.inactiveButtonClass;
     this._inputErrorClass = classSettingsObject.inputErrorClass;
     this._errorClass = classSettingsObject.errorClass;
+    this._inputList = formElement.querySelectorAll(classSettingsObject.inputSelector);
+    this._submitButton = formElement.querySelector(classSettingsObject.submitButtonSelector);
   }
 
   validateForm() {
-    this._inputElementList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    this._submitButton = this._formElement.querySelector(this._submitButtonSelector);
+    this._inputElementList = Array.from(this._inputList);
+    //this._submitButton = this._formElement.querySelector(this._submitButtonSelector);
     this._inputElementList.forEach((inputElement) => {
       this._hideInputError(inputElement);
       this._setEventListener(inputElement);
@@ -52,7 +52,7 @@ export default class FormValidator {
 
   // public method which cleans error messages of particular validator instance
   clearFormErrors() {
-    const openFormInputs = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    const openFormInputs = Array.from(this._inputList);
     openFormInputs.forEach((element) => this._hideInputError(element));
   }
 
