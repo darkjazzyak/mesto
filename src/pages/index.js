@@ -7,6 +7,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import {classSettingsObject, initialCards} from '../utils/constants.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 import {
   profileElement,
   profileNameText,
@@ -22,8 +23,15 @@ import {
   popupElementViewCard,
   profileEditButton,
   cardAddButton,
-  galleryList
+  galleryList,
+  apiOptions,
 } from '../utils/constants.js';
+
+//instance for Api
+const api = new Api(apiOptions);
+
+
+
 
 const imagePopup = new PopupWithImage(popupElementViewCard);
 // new card generating function
@@ -47,6 +55,13 @@ const cardList = new Section({
     }
 }, galleryList);
 cardList.renderItems();
+
+// UsernInfo from server
+api.getUserData()
+  .then ((data) => {
+    console.log('data =>', data);
+    profileData.setUserInfo(data);
+  });
 
 // instance for UserInfo
 const profileData = new UserInfo({

@@ -7,6 +7,12 @@ export const classSettingsObject = {
   errorClass: 'popup__form-input-error_active'
 }
 
+export const apiOptions = {
+  token: 'ee202237-2b86-4fe3-8126-63be3fac6290',
+  userInfoUrl: 'https://nomoreparties.co/v1/cohort-41/users/me',
+  cardsUrl: 'https://mesto.nomoreparties.co/v1/cohort-41/cards'
+}
+
 export const initialCards = [
   {
     name: 'Архыз',

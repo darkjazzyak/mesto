@@ -5,18 +5,18 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    this._userName = this._userNameElement.textContent;
-    this._aboutMe = this._aboutMeElement.textContent;
+    this._name = this._userNameElement.textContent;
+    this._about = this._aboutMeElement.textContent;
     this._userInfoObject = {
-      name: this._userName,
-      aboutMe: this._aboutMe
+      name: this._name,
+      about: this._about
     };
     return this._userInfoObject;
   }
 
-  setUserInfo(formData) {
-    this._userNameElement.textContent = formData.name;
-    this._aboutMeElement.textContent = formData.aboutMe;
+  setUserInfo(data) {
+    this._userNameElement.textContent = data.name;
+    this._aboutMeElement.textContent = data.about;
   }
 
 }
