@@ -31,9 +31,8 @@ import {
 const api = new Api(apiOptions);
 
 
-
-
 const imagePopup = new PopupWithImage(popupElementViewCard);
+
 // new card generating function
 function generateNewCard(cardData) {
   const card = new Card({
@@ -46,20 +45,34 @@ function generateNewCard(cardData) {
   return newCard;
 }
 
+//Cards from server
+api.getCards()
+  .then((data) => {
+    console.log('cards data =>', data);
+    const cardList = new Section({
+      items: data,
+      renderer: (item) => {
+        const oneNewCard = generateNewCard(item);
+        cardList.addItem(oneNewCard);
+      }
+  }, galleryList);
+  cardList.renderItems();
+  });
+
 // initial cards rendering by creating Section instance
-const cardList = new Section({
-    items: initialCards.reverse(),
-    renderer: (item) => {
-      const oneNewCard = generateNewCard(item);
-      cardList.addItem(oneNewCard);
-    }
-}, galleryList);
-cardList.renderItems();
+// const cardList = new Section({
+//     items: initialCards.reverse(),
+//     renderer: (item) => {
+//       const oneNewCard = generateNewCard(item);
+//       cardList.addItem(oneNewCard);
+//     }
+// }, galleryList);
+// cardList.renderItems();
 
 // UsernInfo from server
 api.getUserData()
   .then ((data) => {
-    console.log('data =>', data);
+    console.log('user data =>', data);
     profileData.setUserInfo(data);
   });
 
