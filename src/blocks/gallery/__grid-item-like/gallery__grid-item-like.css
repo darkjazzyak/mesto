@@ -1,5 +1,5 @@
 .gallery__grid-item-like {
-  margin: 5px 5px 0 0;
+  margin: 0;
   box-sizing: border-box;
   background-color: transparent;
   background-image: url('../../../images/heart_transparent.svg');

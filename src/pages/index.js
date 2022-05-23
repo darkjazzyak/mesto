@@ -38,7 +38,10 @@ function generateNewCard(cardData) {
   const card = new Card({
     item: cardData,
     handleCardClick: () => {
-    imagePopup.open(cardData);
+      imagePopup.open(cardData);
+    },
+    handleLikeClick: () => {
+
     }
   }, '.gallery-template');
   const newCard = card.generateCard();
@@ -75,16 +78,6 @@ api.getCards()
 
   });
 
-//initial cards rendering by creating Section instance
-// const cardList = new Section({
-//     items: [],
-//     renderer: (item) => {
-//       const oneNewCard = generateNewCard(item);
-//       cardList.addItem(oneNewCard);
-//     }
-// }, galleryList);
-// cardList.renderItems();
-
 // UsernInfo from server
 api.getUserData()
   .then ((data) => {
@@ -116,19 +109,7 @@ profileEditButton.addEventListener('click', () => {
   editProfileValidator.toggleSubmitButton();
 });
 
-// //creates new Card from Form data and renders it by Section instance method
-// const addCardPopup = new PopupWithForm({
-//   handleFormSubmit: (formData) => {
-//     cardList.renderItem(formData);
-//     addCardPopup.close();
-//   }
-// }, popupElementAddCard);
 
-// cardAddButton.addEventListener('click', () => {
-//   addCardPopup.open();
-//   addCardValidator.clearFormErrors();
-//   addCardValidator.disableSubmitButton();
-// });
 
 // creates 2 FormValidator instances for 2 forms in the document and activate validation
 const editProfileValidator = new FormValidator (formElementProfile, classSettingsObject);

@@ -38,6 +38,7 @@ class Card {
     this._element.querySelector('.gallery__grid-item-image').src = this._item.link;
     this._element.querySelector('.gallery__grid-item-image').alt = this._item.name;
     this._element.querySelector('.gallery__grid-item-text').textContent = this._item.name;
+    this._element.querySelector('.gallery__grid-item-like-count').textContent = this._item.likes.length;
     this._setEventListeners();
   return this._element;
   };
