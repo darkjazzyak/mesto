@@ -1,7 +1,8 @@
 class Card {
-  constructor ({item, handleCardClick}, cardTemplate) {
+  constructor ({item, handleCardClick, handleDeleteClick}, cardTemplate) {
     this._item = item;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
     this._cardTemplate = cardTemplate;
   }
 
@@ -17,7 +18,7 @@ class Card {
       this._toggleLikeStatus();
       });
     this._element.querySelector('.gallery__grid-item-delete').addEventListener('click', () => {
-      this._deleteCard();
+      this._handleDeleteClick();
       });
     this._element.querySelector('.gallery__grid-item-image').addEventListener('click', (event) => {
       this._handleCardClick(event);

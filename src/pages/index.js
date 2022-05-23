@@ -5,6 +5,7 @@ import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithSubmit from '../components/PopupWithSubmit.js';
 import {classSettingsObject, initialCards} from '../utils/constants.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
@@ -16,6 +17,7 @@ import {
   formElementProfile,
   nameInput,
   aboutMeInput,
+  popupElementDeleteCard,
   popupElementAddCard,
   formElementAddcard,
   placeNameInput,
@@ -33,6 +35,13 @@ const api = new Api(apiOptions);
 
 const imagePopup = new PopupWithImage(popupElementViewCard);
 
+const confirmationPopup = new PopupWithSubmit({
+  handleSubmit: () => {
+    console.log('CARD DELETED');
+  }
+},
+popupElementDeleteCard);
+
 // new card generating function
 function generateNewCard(cardData) {
   const card = new Card({
@@ -40,8 +49,8 @@ function generateNewCard(cardData) {
     handleCardClick: () => {
       imagePopup.open(cardData);
     },
-    handleLikeClick: () => {
-
+    handleDeleteClick: () => {
+      confirmationPopup.open();
     }
   }, '.gallery-template');
   const newCard = card.generateCard();

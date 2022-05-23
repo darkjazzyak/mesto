@@ -60,6 +60,9 @@ export const pictureUrlInput = formElementAddcard.querySelector('.popup__form-in
 //popup elements view card
 export const popupElementViewCard = document.querySelector('.popup_type_view-card');
 
+//popup element delete card
+export const popupElementDeleteCard = document.querySelector('.popup_type_delete-card');
+
 //popup open buttons
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const cardAddButton = document.querySelector('.profile__add-button');
