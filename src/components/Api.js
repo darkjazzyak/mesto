@@ -32,4 +32,46 @@ export default class Api {
     .catch ((error) => console.log(`Ошибка: ${error}`));
   }
 
+  editUserData(formData) {
+    return fetch(this._options.userInfoUrl , {
+      method: 'PATCH',
+      headers: {
+        authorization: this._options.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        about: formData.about
+      })
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch ((error) => console.log(`Ошибка: ${error}`));
+  }
+
+  postCard(formData) {
+    return fetch(this._options.cardsUrl , {
+      method: 'POST',
+      headers: {
+        authorization: this._options.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        link: formData.link,
+      })
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch ((error) => console.log(`Ошибка: ${error}`));
+  }
+
 }

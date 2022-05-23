@@ -50,18 +50,34 @@ api.getCards()
   .then((data) => {
     console.log('cards data =>', data);
     const cardList = new Section({
-      items: data,
+      items: data.reverse(),
       renderer: (item) => {
         const oneNewCard = generateNewCard(item);
         cardList.addItem(oneNewCard);
       }
-  }, galleryList);
-  cardList.renderItems();
+    }, galleryList);
+    cardList.renderItems();
+
+    //creates new Card from Form data and renders it by Section instance method
+    const addCardPopup = new PopupWithForm({
+      handleFormSubmit: (formData) => {
+        cardList.renderItem(formData);
+        addCardPopup.close();
+        api.postCard(formData);
+      }
+    }, popupElementAddCard);
+
+    cardAddButton.addEventListener('click', () => {
+      addCardPopup.open();
+      addCardValidator.clearFormErrors();
+      addCardValidator.disableSubmitButton();
+    });
+
   });
 
-// initial cards rendering by creating Section instance
+//initial cards rendering by creating Section instance
 // const cardList = new Section({
-//     items: initialCards.reverse(),
+//     items: [],
 //     renderer: (item) => {
 //       const oneNewCard = generateNewCard(item);
 //       cardList.addItem(oneNewCard);
@@ -82,11 +98,13 @@ const profileData = new UserInfo({
   aboutMeElement: profileAboutMeText
 });
 
+
 // Instance for Profile Popup
 const profilePopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     profileData.setUserInfo(formData);
     profilePopup.close();
+    api.editUserData(formData);
   }
 }, popupElementProfile);
 
@@ -98,19 +116,19 @@ profileEditButton.addEventListener('click', () => {
   editProfileValidator.toggleSubmitButton();
 });
 
-//creates new Card from Form data and renders it by Section instance method
-const addCardPopup = new PopupWithForm({
-  handleFormSubmit: (formData) => {
-    cardList.renderItem(formData);
-    addCardPopup.close();
-  }
-}, popupElementAddCard);
+// //creates new Card from Form data and renders it by Section instance method
+// const addCardPopup = new PopupWithForm({
+//   handleFormSubmit: (formData) => {
+//     cardList.renderItem(formData);
+//     addCardPopup.close();
+//   }
+// }, popupElementAddCard);
 
-cardAddButton.addEventListener('click', () => {
-  addCardPopup.open();
-  addCardValidator.clearFormErrors();
-  addCardValidator.disableSubmitButton();
-});
+// cardAddButton.addEventListener('click', () => {
+//   addCardPopup.open();
+//   addCardValidator.clearFormErrors();
+//   addCardValidator.disableSubmitButton();
+// });
 
 // creates 2 FormValidator instances for 2 forms in the document and activate validation
 const editProfileValidator = new FormValidator (formElementProfile, classSettingsObject);
