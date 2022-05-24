@@ -32,6 +32,10 @@ export default class Api {
     .catch ((error) => console.log(`Ошибка: ${error}`));
   }
 
+  getInitialData() {
+   return Promise.all([this.getCards(), this.getUserData()]);
+  }
+
   editUserData(formData) {
     return fetch(this._options.userInfoUrl , {
       method: 'PATCH',

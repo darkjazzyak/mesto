@@ -43,9 +43,10 @@ const confirmationPopup = new PopupWithSubmit({
 popupElementDeleteCard);
 
 // new card generating function
-function generateNewCard(cardData) {
+function generateNewCard(cardData, userData) {
   const card = new Card({
     item: cardData,
+    user: userData,
     handleCardClick: () => {
       imagePopup.open(cardData);
     },
@@ -57,41 +58,44 @@ function generateNewCard(cardData) {
   return newCard;
 }
 
-//Cards from server
-api.getCards()
-  .then((data) => {
-    console.log('cards data =>', data);
+//Initial data from API
+api.getInitialData().
+  then((data) => {
+    const [cardData, userData] = data;
+    console.log('card data =>', cardData);
+    console.log('user data =>', userData);
+
+    //initial Cards rendering
     const cardList = new Section({
-      items: data.reverse(),
+      items: cardData.reverse(),
       renderer: (item) => {
-        const oneNewCard = generateNewCard(item);
+        const oneNewCard = generateNewCard(item, userData);
         cardList.addItem(oneNewCard);
       }
     }, galleryList);
     cardList.renderItems();
 
-    //creates new Card from Form data and renders it by Section instance method
+    //sets User info from server to Prifile section
+    profileData.setUserInfo(userData);
+
+    //creates new Card from Form data sends it to server and renders it by Section instance method
     const addCardPopup = new PopupWithForm({
       handleFormSubmit: (formData) => {
-        cardList.renderItem(formData);
-        addCardPopup.close();
-        api.postCard(formData);
+        api.postCard(formData)
+          .then((generatedCard) => {
+            cardList.renderItem(generatedCard);
+            addCardPopup.close();
+          });
       }
     }, popupElementAddCard);
 
+    //listener for user profile popup
     cardAddButton.addEventListener('click', () => {
       addCardPopup.open();
       addCardValidator.clearFormErrors();
       addCardValidator.disableSubmitButton();
     });
 
-  });
-
-// UsernInfo from server
-api.getUserData()
-  .then ((data) => {
-    console.log('user data =>', data);
-    profileData.setUserInfo(data);
   });
 
 // instance for UserInfo
@@ -117,8 +121,6 @@ profileEditButton.addEventListener('click', () => {
   editProfileValidator.clearFormErrors();
   editProfileValidator.toggleSubmitButton();
 });
-
-
 
 // creates 2 FormValidator instances for 2 forms in the document and activate validation
 const editProfileValidator = new FormValidator (formElementProfile, classSettingsObject);
