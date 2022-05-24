@@ -19,7 +19,7 @@ class Card {
       this._toggleLikeStatus();
       });
     this._element.querySelector('.gallery__grid-item-delete').addEventListener('click', () => {
-      this._handleDeleteClick();
+      this._handleDeleteClick(this._item._id);
       });
     this._element.querySelector('.gallery__grid-item-image').addEventListener('click', (event) => {
       this._handleCardClick(event);
@@ -29,7 +29,7 @@ class Card {
   _toggleLikeStatus() {
     this._element.querySelector('.gallery__grid-item-like').classList.toggle('gallery__grid-item-like_liked');
   }
-  _deleteCard() {
+  deleteCard() {
     this._element.remove();
     this._element = '';
   }

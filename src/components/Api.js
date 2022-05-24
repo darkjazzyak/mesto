@@ -78,4 +78,21 @@ export default class Api {
       .catch ((error) => console.log(`Ошибка: ${error}`));
   }
 
+  deleteCard(id) {
+    return fetch(this._options.cardsUrl + '/' + id , {
+      method: 'DELETE',
+      headers: {
+        authorization: this._options.token,
+        'Content-Type': 'application/json'
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch ((error) => console.log(`Ошибка: ${error}`));
+  }
+
 }

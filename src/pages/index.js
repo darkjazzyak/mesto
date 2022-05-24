@@ -35,12 +35,7 @@ const api = new Api(apiOptions);
 
 const imagePopup = new PopupWithImage(popupElementViewCard);
 
-const confirmationPopup = new PopupWithSubmit({
-  handleSubmit: () => {
-    console.log('CARD DELETED');
-  }
-},
-popupElementDeleteCard);
+const confirmationPopup = new PopupWithSubmit(popupElementDeleteCard);
 
 // new card generating function
 function generateNewCard(cardData, userData) {
@@ -50,9 +45,17 @@ function generateNewCard(cardData, userData) {
     handleCardClick: () => {
       imagePopup.open(cardData);
     },
-    handleDeleteClick: () => {
+    handleDeleteClick: (id) => {
       confirmationPopup.open();
-    }
+      confirmationPopup.setSubmitAction(() => {
+        api.deleteCard(id)
+          .then((res) => {
+            card.deleteCard();
+            confirmationPopup.close();
+          });
+      });
+    },
+
   }, '.gallery-template');
   const newCard = card.generateCard();
   return newCard;
@@ -114,7 +117,7 @@ const profilePopup = new PopupWithForm({
   }
 }, popupElementProfile);
 
-// renders profile poup, fills input values, handels submit
+// renders profile popup, fills input values, handels submit
 profileEditButton.addEventListener('click', () => {
   profilePopup.open();
   profilePopup.setDefaultValues(profileData.getUserInfo());
