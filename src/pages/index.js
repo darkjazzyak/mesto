@@ -55,6 +55,22 @@ function generateNewCard(cardData, userData) {
           });
       });
     },
+    handleLikeClick: (id) => {
+      if (card.isLiked()) {
+        api.removeLike(id)
+        .then((res) => {
+          console.log('вернулось после отмены лайка =>', res);
+          card.setLikesQty(res);
+        })
+      } else {
+        console.log('без моих лайков');
+        api.setLike(id)
+          .then((res) => {
+            console.log('вернулось после лайка =>', res);
+            card.setLikesQty(res);
+          })
+      }
+    }
 
   }, '.gallery-template');
   const newCard = card.generateCard();

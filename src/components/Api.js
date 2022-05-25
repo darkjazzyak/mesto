@@ -95,4 +95,38 @@ export default class Api {
       .catch ((error) => console.log(`Ошибка: ${error}`));
   }
 
+  setLike(id) {
+    return fetch(this._options.cardsUrl + '/' + id + '/likes', {
+      method: 'PUT',
+      headers: {
+        authorization: this._options.token,
+        'Content-Type': 'application/json'
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch ((error) => console.log(`Ошибка: ${error}`));
+  }
+
+  removeLike(id) {
+    return fetch(this._options.cardsUrl + '/' + id + '/likes', {
+      method: 'DELETE',
+      headers: {
+        authorization: this._options.token,
+        'Content-Type': 'application/json'
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch ((error) => console.log(`Ошибка: ${error}`));
+  }
+
 }

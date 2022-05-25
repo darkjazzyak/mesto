@@ -1,9 +1,10 @@
 class Card {
-  constructor ({item, user, handleCardClick, handleDeleteClick}, cardTemplate) {
+  constructor ({item, user, handleCardClick, handleDeleteClick, handleLikeClick}, cardTemplate) {
     this._item = item;
     this._user = user;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
     this._cardTemplate = cardTemplate;
   }
 
@@ -16,7 +17,7 @@ class Card {
 
   _setEventListeners() {
     this._element.querySelector('.gallery__grid-item-like').addEventListener('click', () => {
-      this._toggleLikeStatus();
+      this._handleLikeClick(this._item._id);
       });
     this._element.querySelector('.gallery__grid-item-delete').addEventListener('click', () => {
       this._handleDeleteClick(this._item._id);
@@ -36,7 +37,7 @@ class Card {
 
   isLiked() {
     const likedCard = this._item.likes.find((likeEl) => {
-      if (likeEl._id === this._item.userId) {
+      if (likeEl._id === this._user._id) {
         return true;
       }
     });
@@ -50,12 +51,18 @@ class Card {
     this._element.querySelector('.gallery__grid-item-like').classList.remove('gallery__grid-item-like_liked');
   }
 
-  handleLikeFill() {
+  _handleLikeFill() {
     if (this.isLiked()) {
       this._fillLikeStatus();
     } else {
       this._eraseLikeStatus();
     }
+  }
+
+  setLikesQty(likedCardData) {
+    this._item = likedCardData;
+    this._element.querySelector('.gallery__grid-item-like-count').textContent = this._item.likes.length;
+    this._handleLikeFill();
   }
 
 //public method returns comlete card filled with data + listeners
@@ -65,7 +72,7 @@ class Card {
     this._element.querySelector('.gallery__grid-item-image').alt = this._item.name;
     this._element.querySelector('.gallery__grid-item-text').textContent = this._item.name;
     this._element.querySelector('.gallery__grid-item-like-count').textContent = this._item.likes.length;
-    this.handleLikeFill();
+    this._handleLikeFill();
     if (this._item.owner._id !== this._user._id) {
        this._element.querySelector('.gallery__grid-item-delete').classList.add('gallery__grid-item-delete_invisible');
      }
