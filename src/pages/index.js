@@ -14,6 +14,10 @@ import {
   profileNameText,
   profileAboutMeText,
   popupElementProfile,
+  popupElementSetAvatar,
+  formElementSetAvatar,
+  profileAvatar,
+  profileAvatarButton,
   formElementProfile,
   nameInput,
   aboutMeInput,
@@ -120,16 +124,38 @@ api.getInitialData().
 // instance for UserInfo
 const profileData = new UserInfo({
   userNameElement: profileNameText,
-  aboutMeElement: profileAboutMeText
+  aboutMeElement: profileAboutMeText,
+  avatarElement: profileAvatar
 });
 
+//listener for change avatar popup open button
+profileAvatarButton.addEventListener('click', () => {
+  profileAvatarPopup.open();
+  setAvatarValidator.clearFormErrors();
+  setAvatarValidator.disableSubmitButton();
+});
+
+//instance for avatar Popup
+const profileAvatarPopup = new PopupWithForm({
+  handleFormSubmit: (formData) => {
+    console.log('avatar link =>', formData);
+    api.setAvatar(formData)
+      .then((userInfo) => {
+        profileData.setUserInfo(userInfo);
+      });
+    profileAvatarPopup.close();
+  }
+}, popupElementSetAvatar);
 
 // Instance for Profile Popup
 const profilePopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     profileData.setUserInfo(formData);
+    api.editUserData(formData)
+    .then((userInfo) => {
+      profileData.setUserInfo(userInfo);
+      });
     profilePopup.close();
-    api.editUserData(formData);
   }
 }, popupElementProfile);
 
@@ -141,8 +167,10 @@ profileEditButton.addEventListener('click', () => {
   editProfileValidator.toggleSubmitButton();
 });
 
-// creates 2 FormValidator instances for 2 forms in the document and activate validation
+// creates 2 FormValidator instances for 3 forms in the document and activate validation
 const editProfileValidator = new FormValidator (formElementProfile, classSettingsObject);
 editProfileValidator.validateForm();
 const addCardValidator = new FormValidator (formElementAddcard, classSettingsObject);
 addCardValidator.validateForm();
+const setAvatarValidator = new FormValidator (formElementSetAvatar, classSettingsObject);
+setAvatarValidator.validateForm();

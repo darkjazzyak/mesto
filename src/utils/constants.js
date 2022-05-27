@@ -44,6 +44,9 @@ export const initialCards = [
 export const profileElement = document.querySelector('.profile');
 export const profileNameText = profileElement.querySelector('.profile__name');
 export const profileAboutMeText = profileElement.querySelector('.profile__about-me');
+export const profileAvatar = profileElement.querySelector('.profile__avatar');
+export const profileAvatarButton = profileElement.querySelector('.profile__avatar-wrapper');
+
 
 //popup elements Edit Profile
 export const popupElementProfile = document.querySelector('.popup_type_edit-profile');
@@ -59,6 +62,10 @@ export const pictureUrlInput = formElementAddcard.querySelector('.popup__form-in
 
 //popup elements view card
 export const popupElementViewCard = document.querySelector('.popup_type_view-card');
+
+//popup elements set avatar popup__form
+export const popupElementSetAvatar = document.querySelector('.popup_type_set-avatar');
+export const formElementSetAvatar = popupElementSetAvatar.querySelector('.popup__form_type_set-avatar');
 
 //popup element delete card
 export const popupElementDeleteCard = document.querySelector('.popup_type_delete-card');

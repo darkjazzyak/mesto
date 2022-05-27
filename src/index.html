@@ -12,7 +12,12 @@
   <main class="content">
     <section class="profile page__profile">
       <div class="profile__description">
-        <img src="<%=require('./images/kusto_avatar.jpg')%>" alt="портрет Жака Кусто" class="profile__avatar">
+        <div class="profile__avatar-wrapper">
+          <img src="" alt="портрет пользователя" class="profile__avatar">
+          <div class="profile__avatar-change-button-wrapper">
+            <img src="<%=require('./images/pencil.svg')%>" alt="карандаш" class="profile__avatar-change-button">
+          </div>
+        </div>
         <div class="profile__description-text">
           <h1 class="profile__name"></h1>
           <button class="profile__edit-button" type="button" aria-label="Edit-button"></button>
@@ -101,6 +106,27 @@
           <span class="popup__form-input-error picture-url-error">Введите адрес сайта</span>
         </label>
         <button type="submit" class="popup__form-button">Создать</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_set-avatar">
+    <div class="popup__window">
+      <button type="button" class="popup__close-icon" aria-label="Close-button-set-avatar"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form popup__form_type_set-avatar" name="popup-form-set-avatar">
+        <label class="popup__form-input-field">
+          <input
+            type="url"
+            class="popup__form-input popup__form-input_type_set-avatar"
+            name="link"
+            id="avatar-url"
+            autocomplete="off"
+            placeholder="Ссылка на картинку"
+            required
+          >
+          <span class="popup__form-input-error avatar-url-error">Введите адрес сайта</span>
+        </label>
+        <button type="submit" class="popup__form-button">Сохранить</button>
       </form>
     </div>
   </div>

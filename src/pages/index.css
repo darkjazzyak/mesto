@@ -45,5 +45,8 @@
 @import url(../blocks/popup/__picture-display/popup__picture-display.css);
 @import url(../blocks/popup/__place-name/popup__place-name.css);
 @import url(../blocks/popup/__place-picture/popup__place-picture.css);
+@import url(../blocks/profile/__avatar-change-button/profile__avatar-change-button.css);
+@import url(../blocks/profile/__avatar-wrapper/profile__avatar-wrapper.css);
+@import url(../blocks/profile/__avatar-change-button-wrapper/profile__avatar-change-button-wrapper.css);
 
 

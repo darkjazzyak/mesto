@@ -129,4 +129,24 @@ export default class Api {
       .catch ((error) => console.log(`Ошибка: ${error}`));
   }
 
+  setAvatar(formData) {
+    return fetch(this._options.userInfoUrl + '/avatar', {
+      method: 'PATCH',
+      headers: {
+        authorization: this._options.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: formData.link,
+      })
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch ((error) => console.log(`Ошибка: ${error}`));
+  }
+
 }

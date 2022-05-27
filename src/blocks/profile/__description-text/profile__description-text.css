@@ -1,5 +1,5 @@
 .profile__description-text {
-  margin: 22px 0 0;
+  margin: 22px 0 0 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -12,6 +12,7 @@
 @media screen and (max-width: 768px) {
   .profile__description-text {
     margin-top: 26px;
+    margin-right: 0;
     flex-basis: 282px;
     justify-content: center;
   }
