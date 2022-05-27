@@ -74,6 +74,9 @@ export const popupElementDeleteCard = document.querySelector('.popup_type_delete
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const cardAddButton = document.querySelector('.profile__add-button');
 
+//popup submit buttons
+export const submitButtonElement = document.querySelector('.popup__form-button');
+
 //template elements
 export const galleryList = document.querySelector('.gallery__grid-list');
 

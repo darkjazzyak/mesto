@@ -6,7 +6,6 @@
   object-fit: cover;
   box-sizing: border-box;
   margin: 0;
-  z-index: 1;
 }
 
 @media screen and (max-width: 768px) {

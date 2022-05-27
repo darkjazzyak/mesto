@@ -6,10 +6,10 @@ import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithSubmit from '../components/PopupWithSubmit.js';
-import {classSettingsObject, initialCards} from '../utils/constants.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import {
+  classSettingsObject,
   profileElement,
   profileNameText,
   profileAboutMeText,
@@ -23,6 +23,7 @@ import {
   aboutMeInput,
   popupElementDeleteCard,
   popupElementAddCard,
+  submitButtonElement,
   formElementAddcard,
   placeNameInput,
   pictureUrlInput,
@@ -36,9 +37,10 @@ import {
 //instance for Api
 const api = new Api(apiOptions);
 
-
+//instance for Popup with card picture zoom
 const imagePopup = new PopupWithImage(popupElementViewCard);
 
+//instance for confirmation of Card deletion
 const confirmationPopup = new PopupWithSubmit(popupElementDeleteCard);
 
 // new card generating function
@@ -63,14 +65,11 @@ function generateNewCard(cardData, userData) {
       if (card.isLiked()) {
         api.removeLike(id)
         .then((res) => {
-          console.log('вернулось после отмены лайка =>', res);
           card.setLikesQty(res);
         })
       } else {
-        console.log('без моих лайков');
         api.setLike(id)
           .then((res) => {
-            console.log('вернулось после лайка =>', res);
             card.setLikesQty(res);
           })
       }
@@ -85,9 +84,6 @@ function generateNewCard(cardData, userData) {
 api.getInitialData().
   then((data) => {
     const [cardData, userData] = data;
-    console.log('card data =>', cardData);
-    console.log('user data =>', userData);
-
     //initial Cards rendering
     const cardList = new Section({
       items: cardData.reverse(),
@@ -104,11 +100,13 @@ api.getInitialData().
     //creates new Card from Form data sends it to server and renders it by Section instance method
     const addCardPopup = new PopupWithForm({
       handleFormSubmit: (formData) => {
+        addCardValidator.showLoader();
         api.postCard(formData)
           .then((generatedCard) => {
             cardList.renderItem(generatedCard);
             addCardPopup.close();
-          });
+          })
+            .finally (() => addCardValidator.hideLoader());
       }
     }, popupElementAddCard);
 
@@ -135,14 +133,15 @@ profileAvatarButton.addEventListener('click', () => {
   setAvatarValidator.disableSubmitButton();
 });
 
-//instance for avatar Popup
+//instance for set avatar Popup
 const profileAvatarPopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
-    console.log('avatar link =>', formData);
+    setAvatarValidator.showLoader();
     api.setAvatar(formData)
       .then((userInfo) => {
         profileData.setUserInfo(userInfo);
-      });
+      })
+        .finally (() => setAvatarValidator.hideLoader());
     profileAvatarPopup.close();
   }
 }, popupElementSetAvatar);
@@ -151,10 +150,12 @@ const profileAvatarPopup = new PopupWithForm({
 const profilePopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     profileData.setUserInfo(formData);
+    editProfileValidator.showLoader();
     api.editUserData(formData)
-    .then((userInfo) => {
-      profileData.setUserInfo(userInfo);
-      });
+      .then((userInfo) => {
+        profileData.setUserInfo(userInfo);
+      })
+      .finally (() => editProfileValidator.hideLoader());
     profilePopup.close();
   }
 }, popupElementProfile);
@@ -167,7 +168,7 @@ profileEditButton.addEventListener('click', () => {
   editProfileValidator.toggleSubmitButton();
 });
 
-// creates 2 FormValidator instances for 3 forms in the document and activate validation
+// creates 3 FormValidator instances for 3 forms in the document and activate validation
 const editProfileValidator = new FormValidator (formElementProfile, classSettingsObject);
 editProfileValidator.validateForm();
 const addCardValidator = new FormValidator (formElementAddcard, classSettingsObject);
