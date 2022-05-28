@@ -25,8 +25,6 @@ import {
   popupElementAddCard,
   submitButtonElement,
   formElementAddcard,
-  placeNameInput,
-  pictureUrlInput,
   popupElementViewCard,
   profileEditButton,
   cardAddButton,
