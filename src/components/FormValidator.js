@@ -82,14 +82,4 @@ export default class FormValidator {
     this._submitButton.disabled = false;
   }
 
-  showLoader() {
-    this._currentButtonText = this._submitButton.textContent;
-    this._submitButton.textContent = 'Сохранение...';
-    this._submitButton.disabled = true;
-  }
-
-  hideLoader() {
-    this._submitButton.textContent = this._currentButtonText;
-    this._submitButton.disabled = false;
-  }
 }

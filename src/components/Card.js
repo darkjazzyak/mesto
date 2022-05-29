@@ -16,19 +16,15 @@ class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.gallery__grid-item-like').addEventListener('click', () => {
+    this.cardLikeButton.addEventListener('click', () => {
       this._handleLikeClick(this._item._id);
-      });
-    this._element.querySelector('.gallery__grid-item-delete').addEventListener('click', () => {
+    });
+    this.cardDeleteButton.addEventListener('click', () => {
       this._handleDeleteClick(this._item._id);
-      });
-    this._element.querySelector('.gallery__grid-item-image').addEventListener('click', (event) => {
+    });
+    this._cardImage.addEventListener('click', (event) => {
       this._handleCardClick(event);
-      });
-  }
-
-  _toggleLikeStatus() {
-    this._element.querySelector('.gallery__grid-item-like').classList.toggle('gallery__grid-item-like_liked');
+    });
   }
 
   deleteCard() {
@@ -46,10 +42,10 @@ class Card {
   }
 
   _fillLikeStatus() {
-    this._element.querySelector('.gallery__grid-item-like').classList.add('gallery__grid-item-like_liked');
+    this.cardLikeButton.classList.add('gallery__grid-item-like_liked');
   }
   _eraseLikeStatus() {
-    this._element.querySelector('.gallery__grid-item-like').classList.remove('gallery__grid-item-like_liked');
+    this.cardLikeButton.classList.remove('gallery__grid-item-like_liked');
   }
 
   _handleLikeFill() {
@@ -62,20 +58,26 @@ class Card {
 
   setLikesQty(likedCardData) {
     this._item = likedCardData;
-    this._element.querySelector('.gallery__grid-item-like-count').textContent = this._item.likes.length;
+    this.likeCount.textContent = this._item.likes.length;
     this._handleLikeFill();
   }
 
 //public method returns comlete card filled with data + listeners
   generateCard () {
     this._element = this._getTemplate();
-    this._element.querySelector('.gallery__grid-item-image').src = this._item.link;
-    this._element.querySelector('.gallery__grid-item-image').alt = this._item.name;
-    this._element.querySelector('.gallery__grid-item-text').textContent = this._item.name;
-    this._element.querySelector('.gallery__grid-item-like-count').textContent = this._item.likes.length;
+    this._cardImage = this._element.querySelector('.gallery__grid-item-image');
+    this.cardDeleteButton = this._element.querySelector('.gallery__grid-item-delete');
+    this.cardLikeButton = this._element.querySelector('.gallery__grid-item-like');
+    this.likeCount = this._element.querySelector('.gallery__grid-item-like-count');
+    this.cardText = this._element.querySelector('.gallery__grid-item-text');
+
+    this._cardImage.src = this._item.link;
+    this._cardImage.alt = this._item.name;
+    this.cardText.textContent = this._item.name;
+    this.likeCount.textContent = this._item.likes.length;
     this._handleLikeFill();
     if (this._item.owner._id !== this._user._id) {
-       this._element.querySelector('.gallery__grid-item-delete').classList.add('gallery__grid-item-delete_invisible');
+      this.cardDeleteButton.classList.add('gallery__grid-item-delete_invisible');
      }
 
     this._setEventListeners();

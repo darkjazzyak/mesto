@@ -102,14 +102,14 @@ api.getInitialData()
     //creates new Card from Form data sends it to server and renders it by Section instance method
     const addCardPopup = new PopupWithForm({
       handleFormSubmit: (formData) => {
-        addCardValidator.showLoader();
+        addCardPopup.showLoader();
         api.postCard(formData)
           .then((generatedCard) => {
             cardList.renderItem(generatedCard);
             addCardPopup.close();
           })
           .catch ((error) => console.log(`Ошибка: ${error}`))
-          .finally (() => addCardValidator.hideLoader());
+          .finally (() => addCardPopup.hideLoader());
       }
     }, popupElementAddCard);
 
@@ -140,29 +140,28 @@ profileAvatarButton.addEventListener('click', () => {
 //instance for set avatar Popup
 const profileAvatarPopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
-    setAvatarValidator.showLoader();
+    profileAvatarPopup.showLoader();
     api.setAvatar(formData)
       .then((userInfo) => {
         profileData.setUserInfo(userInfo);
+        profileAvatarPopup.close();
       })
       .catch ((error) => console.log(`Ошибка: ${error}`))
-      .finally (() => setAvatarValidator.hideLoader());
-    profileAvatarPopup.close();
+      .finally (() => profileAvatarPopup.hideLoader());
   }
 }, popupElementSetAvatar);
 
 // Instance for Profile Popup
 const profilePopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
-    //profileData.setUserInfo(formData);
-    editProfileValidator.showLoader();
+    profilePopup.showLoader();
     api.editUserData(formData)
       .then((userInfo) => {
         profileData.setUserInfo(userInfo);
+        profilePopup.close();
       })
       .catch ((error) => console.log(`Ошибка: ${error}`))
-      .finally (() => editProfileValidator.hideLoader());
-    profilePopup.close();
+      .finally (() => profilePopup.hideLoader());
   }
 }, popupElementProfile);
 
