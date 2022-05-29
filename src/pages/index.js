@@ -52,24 +52,28 @@ function generateNewCard(cardData, userData) {
     handleDeleteClick: (id) => {
       confirmationPopup.open();
       confirmationPopup.setSubmitAction(() => {
+        card.deleteCard();
         api.deleteCard(id)
           .then((res) => {
-            card.deleteCard();
+            console.log(res);
             confirmationPopup.close();
-          });
+          })
+          .catch ((error) => console.log(`Ошибка: ${error}`));
       });
     },
     handleLikeClick: (id) => {
       if (card.isLiked()) {
         api.removeLike(id)
-        .then((res) => {
-          card.setLikesQty(res);
-        })
+          .then((res) => {
+            card.setLikesQty(res);
+          })
+          .catch ((error) => console.log(`Ошибка: ${error}`));
       } else {
         api.setLike(id)
           .then((res) => {
             card.setLikesQty(res);
           })
+          .catch ((error) => console.log(`Ошибка: ${error}`));
       }
     }
 
@@ -79,8 +83,8 @@ function generateNewCard(cardData, userData) {
 }
 
 //Initial data from API
-api.getInitialData().
-  then((data) => {
+api.getInitialData()
+  .then((data) => {
     const [cardData, userData] = data;
     //initial Cards rendering
     const cardList = new Section({
@@ -104,7 +108,8 @@ api.getInitialData().
             cardList.renderItem(generatedCard);
             addCardPopup.close();
           })
-            .finally (() => addCardValidator.hideLoader());
+          .catch ((error) => console.log(`Ошибка: ${error}`))
+          .finally (() => addCardValidator.hideLoader());
       }
     }, popupElementAddCard);
 
@@ -115,7 +120,8 @@ api.getInitialData().
       addCardValidator.disableSubmitButton();
     });
 
-  });
+  })
+  .catch ((error) => console.log(`Ошибка: ${error}`));
 
 // instance for UserInfo
 const profileData = new UserInfo({
@@ -139,7 +145,8 @@ const profileAvatarPopup = new PopupWithForm({
       .then((userInfo) => {
         profileData.setUserInfo(userInfo);
       })
-        .finally (() => setAvatarValidator.hideLoader());
+      .catch ((error) => console.log(`Ошибка: ${error}`))
+      .finally (() => setAvatarValidator.hideLoader());
     profileAvatarPopup.close();
   }
 }, popupElementSetAvatar);
@@ -147,12 +154,13 @@ const profileAvatarPopup = new PopupWithForm({
 // Instance for Profile Popup
 const profilePopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
-    profileData.setUserInfo(formData);
+    //profileData.setUserInfo(formData);
     editProfileValidator.showLoader();
     api.editUserData(formData)
       .then((userInfo) => {
         profileData.setUserInfo(userInfo);
       })
+      .catch ((error) => console.log(`Ошибка: ${error}`))
       .finally (() => editProfileValidator.hideLoader());
     profilePopup.close();
   }

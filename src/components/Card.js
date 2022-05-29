@@ -30,6 +30,7 @@ class Card {
   _toggleLikeStatus() {
     this._element.querySelector('.gallery__grid-item-like').classList.toggle('gallery__grid-item-like_liked');
   }
+
   deleteCard() {
     this._element.remove();
     this._element = '';

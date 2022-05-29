@@ -2,19 +2,21 @@ export default class Api {
   constructor(options) {
     this._options = options;
   }
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
+  }
+
   getUserData() {
     return fetch(this._options.userInfoUrl , {
       headers: {
         authorization: this._options.token,
       }
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch ((error) => console.log(`Ошибка: ${error}`));
+      .then((res) => this._checkResponse(res))
   }
 
   getCards() {
@@ -23,13 +25,7 @@ export default class Api {
         authorization: this._options.token,
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
-    .catch ((error) => console.log(`Ошибка: ${error}`));
+    .then((res) => this._checkResponse(res))
   }
 
   getInitialData() {
@@ -48,13 +44,7 @@ export default class Api {
         about: formData.about
       })
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch ((error) => console.log(`Ошибка: ${error}`));
+      .then((res) => this._checkResponse(res))
   }
 
   postCard(formData) {
@@ -69,13 +59,7 @@ export default class Api {
         link: formData.link,
       })
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch ((error) => console.log(`Ошибка: ${error}`));
+      .then((res) => this._checkResponse(res))
   }
 
   deleteCard(id) {
@@ -86,13 +70,7 @@ export default class Api {
         'Content-Type': 'application/json'
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch ((error) => console.log(`Ошибка: ${error}`));
+      .then((res) => this._checkResponse(res))
   }
 
   setLike(id) {
@@ -103,13 +81,7 @@ export default class Api {
         'Content-Type': 'application/json'
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch ((error) => console.log(`Ошибка: ${error}`));
+      .then((res) => this._checkResponse(res))
   }
 
   removeLike(id) {
@@ -120,13 +92,7 @@ export default class Api {
         'Content-Type': 'application/json'
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch ((error) => console.log(`Ошибка: ${error}`));
+      .then((res) => this._checkResponse(res))
   }
 
   setAvatar(formData) {
@@ -140,13 +106,7 @@ export default class Api {
         avatar: formData.link,
       })
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch ((error) => console.log(`Ошибка: ${error}`));
+      .then((res) => this._checkResponse(res))
   }
 
 }
