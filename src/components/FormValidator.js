@@ -7,12 +7,11 @@ export default class FormValidator {
     this._inputErrorClass = classSettingsObject.inputErrorClass;
     this._errorClass = classSettingsObject.errorClass;
     this._inputList = formElement.querySelectorAll(classSettingsObject.inputSelector);
+    this._inputElementList = Array.from(this._inputList);
     this._submitButton = formElement.querySelector(classSettingsObject.submitButtonSelector);
   }
 
-  validateForm() {
-    this._inputElementList = Array.from(this._inputList);
-    //this._submitButton = this._formElement.querySelector(this._submitButtonSelector);
+  enableValidation() {
     this._inputElementList.forEach((inputElement) => {
       this._hideInputError(inputElement);
       this._setEventListener(inputElement);
@@ -52,8 +51,7 @@ export default class FormValidator {
 
   // public method which cleans error messages of particular validator instance
   clearFormErrors() {
-    const openFormInputs = Array.from(this._inputList);
-    openFormInputs.forEach((element) => this._hideInputError(element));
+    this._inputElementList.forEach((element) => this._hideInputError(element));
   }
 
   // public method which activetes/disables submit button depending on form validity

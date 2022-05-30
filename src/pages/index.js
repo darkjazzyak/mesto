@@ -52,10 +52,10 @@ function generateNewCard(cardData, userData) {
     handleDeleteClick: (id) => {
       confirmationPopup.open();
       confirmationPopup.setSubmitAction(() => {
-        card.deleteCard();
         api.deleteCard(id)
           .then((res) => {
             console.log(res);
+            card.deleteCard();
             confirmationPopup.close();
           })
           .catch ((error) => console.log(`Ошибка: ${error}`));
@@ -175,8 +175,8 @@ profileEditButton.addEventListener('click', () => {
 
 // creates 3 FormValidator instances for 3 forms in the document and activate validation
 const editProfileValidator = new FormValidator (formElementProfile, classSettingsObject);
-editProfileValidator.validateForm();
+editProfileValidator.enableValidation();
 const addCardValidator = new FormValidator (formElementAddcard, classSettingsObject);
-addCardValidator.validateForm();
+addCardValidator.enableValidation();
 const setAvatarValidator = new FormValidator (formElementSetAvatar, classSettingsObject);
-setAvatarValidator.validateForm();
+setAvatarValidator.enableValidation();

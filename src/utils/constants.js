@@ -8,9 +8,12 @@ export const classSettingsObject = {
 }
 
 export const apiOptions = {
-  token: 'ee202237-2b86-4fe3-8126-63be3fac6290',
   userInfoUrl: 'https://nomoreparties.co/v1/cohort-41/users/me',
-  cardsUrl: 'https://mesto.nomoreparties.co/v1/cohort-41/cards'
+  cardsUrl: 'https://mesto.nomoreparties.co/v1/cohort-41/cards',
+  headers: {
+    authorization: 'ee202237-2b86-4fe3-8126-63be3fac6290',
+    'Content-Type': 'application/json'
+  }
 }
 
 export const initialCards = [

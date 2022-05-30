@@ -12,18 +12,14 @@ export default class Api {
 
   getUserData() {
     return fetch(this._options.userInfoUrl , {
-      headers: {
-        authorization: this._options.token,
-      }
+      headers: this._options.headers
     })
       .then((res) => this._checkResponse(res))
   }
 
   getCards() {
     return fetch(this._options.cardsUrl , {
-      headers: {
-        authorization: this._options.token,
-      }
+      headers: this._options.headers
     })
     .then((res) => this._checkResponse(res))
   }
@@ -35,10 +31,7 @@ export default class Api {
   editUserData(formData) {
     return fetch(this._options.userInfoUrl , {
       method: 'PATCH',
-      headers: {
-        authorization: this._options.token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
       body: JSON.stringify({
         name: formData.name,
         about: formData.about
@@ -50,10 +43,7 @@ export default class Api {
   postCard(formData) {
     return fetch(this._options.cardsUrl , {
       method: 'POST',
-      headers: {
-        authorization: this._options.token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
       body: JSON.stringify({
         name: formData.name,
         link: formData.link,
@@ -65,10 +55,7 @@ export default class Api {
   deleteCard(id) {
     return fetch(this._options.cardsUrl + '/' + id , {
       method: 'DELETE',
-      headers: {
-        authorization: this._options.token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
     })
       .then((res) => this._checkResponse(res))
   }
@@ -76,10 +63,7 @@ export default class Api {
   setLike(id) {
     return fetch(this._options.cardsUrl + '/' + id + '/likes', {
       method: 'PUT',
-      headers: {
-        authorization: this._options.token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
     })
       .then((res) => this._checkResponse(res))
   }
@@ -87,10 +71,7 @@ export default class Api {
   removeLike(id) {
     return fetch(this._options.cardsUrl + '/' + id + '/likes', {
       method: 'DELETE',
-      headers: {
-        authorization: this._options.token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
     })
       .then((res) => this._checkResponse(res))
   }
@@ -98,10 +79,7 @@ export default class Api {
   setAvatar(formData) {
     return fetch(this._options.userInfoUrl + '/avatar', {
       method: 'PATCH',
-      headers: {
-        authorization: this._options.token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
       body: JSON.stringify({
         avatar: formData.link,
       })
